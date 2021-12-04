@@ -152,6 +152,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\fluid-simulation.dir\build.make CMakeFiles/fluid-simulation.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/Fluid.obj: src/Fluid.cpp.obj
+.PHONY : src/Fluid.obj
+
+# target to build an object file
+src/Fluid.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\fluid-simulation.dir\build.make CMakeFiles/fluid-simulation.dir/src/Fluid.cpp.obj
+.PHONY : src/Fluid.cpp.obj
+
+src/Fluid.i: src/Fluid.cpp.i
+.PHONY : src/Fluid.i
+
+# target to preprocess a source file
+src/Fluid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\fluid-simulation.dir\build.make CMakeFiles/fluid-simulation.dir/src/Fluid.cpp.i
+.PHONY : src/Fluid.cpp.i
+
+src/Fluid.s: src/Fluid.cpp.s
+.PHONY : src/Fluid.s
+
+# target to generate assembly for a file
+src/Fluid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\fluid-simulation.dir\build.make CMakeFiles/fluid-simulation.dir/src/Fluid.cpp.s
+.PHONY : src/Fluid.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -164,6 +188,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... src/Fluid.obj
+	@echo ... src/Fluid.i
+	@echo ... src/Fluid.s
 .PHONY : help
 
 

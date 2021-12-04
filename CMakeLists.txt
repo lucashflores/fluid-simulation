@@ -9,3 +9,4 @@ add_executable(fluid-simulation main.cpp ${SOURCES})
 set_target_properties(fluid-simulation PROPERTIES RUNTIME_OUTPUT_DIRECTORY "./")
 
 include_directories (include)
+

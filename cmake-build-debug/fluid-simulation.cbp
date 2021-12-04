@@ -85,6 +85,9 @@
 		<Unit filename="D:/repositories/fluid-simulation/main.cpp">
 			<Option target="fluid-simulation"/>
 		</Unit>
+		<Unit filename="D:/repositories/fluid-simulation/src/Fluid.cpp">
+			<Option target="fluid-simulation"/>
+		</Unit>
 		<Unit filename="D:/repositories/fluid-simulation/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

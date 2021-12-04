@@ -3,3 +3,5 @@
 
 CMakeFiles/fluid-simulation.dir/main.cpp.obj: \
  ../main.cpp
+CMakeFiles/fluid-simulation.dir/src/Fluid.cpp.obj: \
+ ../src/Fluid.cpp
