@@ -1,0 +1,4 @@
+"C:\Program Files (x86)\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" D:\repositories\fluid-simulation
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/repositories/fluid-simulation/cmake-build-debug
