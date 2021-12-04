@@ -1,3 +1,0 @@
-"C:\Program Files (x86)\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\fluid-simulation.dir/objects.a
-C:\mingw\bin\ar.exe cr CMakeFiles\fluid-simulation.dir/objects.a @CMakeFiles\fluid-simulation.dir\objects1.rsp
-C:\mingw\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\fluid-simulation.dir/objects.a -Wl,--no-whole-archive -o fluid-simulation.exe -Wl,--out-implib,libfluid-simulation.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\fluid-simulation.dir\linklibs.rsp
