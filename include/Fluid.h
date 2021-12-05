@@ -25,6 +25,7 @@ public:
     void diffuse(int direction, float dt);
     void project();
     void abvect();
+    void densStep(float dt);
     void draw();
 
 };
