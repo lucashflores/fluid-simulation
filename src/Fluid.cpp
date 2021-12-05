@@ -1,6 +1,7 @@
 #include "Fluid.h"
 
-Fluid::Fluid(int w, int h, float diff): height(h), width(w), diff(diff), density(), initialDensity(), source(), hvelocity(), vvelocity() {
+Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w), diff(diff), density(), initialDensity(), source(), hvelocity(), vvelocity() {
+    this->graphics = graphics;
     setSize(w, h);
     density.assign(size, 0);
     source.assign(size, 0);
@@ -63,3 +64,16 @@ void Fluid::diffuse(int direction, float dt) {
     }
 }
 
+void Fluid::project() {
+
+}
+
+
+
+
+void Fluid::draw() {
+    for (int i = 0; i < width; i++)
+        for (int j = 0; j < height; j++){
+            graphics->drawPixel(i, j, density[IX(i, j, height)]);
+        }
+}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "stdafx.h"
+#include "Graphics.h"
 #include <vector>
 
 class Fluid {
@@ -14,8 +15,9 @@ private:
     std::vector<float> density;
     std::vector<float> hvelocity;
     std::vector<float> vvelocity;
+    Graphics *graphics;
 public:
-    Fluid(int w, int h, float diff);
+    Fluid(int w, int h, float diff, Graphics *graphics);
     ~Fluid();
     void setSize(int w, int h);
     void addSource(float dt);
@@ -23,5 +25,6 @@ public:
     void diffuse(int direction, float dt);
     void project();
     void abvect();
+    void draw();
 
 };
