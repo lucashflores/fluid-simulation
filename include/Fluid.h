@@ -19,9 +19,9 @@ public:
     ~Fluid();
     void setSize(int w, int h);
     void addSource(float dt);
-    void diffuse(float dt);
+    void setBounds(int direction);
+    void diffuse(int direction, float dt);
     void project();
     void abvect();
-    void setBounds(int direction);
 
 };

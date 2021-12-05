@@ -52,3 +52,14 @@ void Fluid::setBounds(int direction) {
 
 }
 
+void Fluid::diffuse(int direction, float dt) {
+    float coef = diff * dt * size;
+
+    for (int n = 0; n < 20; n++) {
+        for (int i = 1; i <= width; i++)
+            for (int j = 1; j <= height; j++)
+                density[IX(i, j, height)] = (initialDensity[IX(i, j, height)] + coef * (density[IX(i-1, j, height)] + density[IX(i+1, j, height)] + density[IX(i, j-1, height)] + density[IX(i, j+1, height)])) / (4*coef + 1);
+        setBounds(direction);
+    }
+}
+
