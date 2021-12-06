@@ -1,12 +1,15 @@
 #include "Fluid.h"
 
-Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w), diff(diff), density(), initialDensity(), source(), hvelocity(), vvelocity() {
+Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w), diff(diff),
+density(), initialDensity(), source(), initialHVelocity(), hvelocity(), initialVVelocity(), vvelocity() {
     this->graphics = graphics;
     setSize(w, h);
     initialDensity.assign(size, 0);
     density.assign(size, 0.3);
+    initialVVelocity.assign(size, 0);
+    initialHVelocity.assign(size, 0);
     source.assign(size, 0);
-    source[IX(width/2, height/2, height)] = 1;
+    source[IX(width/2, height/2, height)] = 30;
     hvelocity.assign(size, 0);
     vvelocity.assign(size, 0);
 }
@@ -14,7 +17,8 @@ Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w),
 Fluid::~Fluid() {
     density.clear();
     initialDensity.clear();
-    source.clear();
+    initialHVelocity.clear();
+    initialVVelocity.clear();
     hvelocity.clear();
     vvelocity.clear();
 }
@@ -25,9 +29,9 @@ void Fluid::setSize(int w, int h) {
     size = (w+2)*(h+2);
 }
 
-void Fluid::addSource(float dt) {
+void Fluid::addSource(std::vector<float> vector, std::vector<float> source, float dt) {
     for (int i = 0; i < size; i++) {
-        density[i] += dt*source[i];
+        vector[i] += dt*source[i];
     }
 }
 
@@ -55,15 +59,56 @@ void Fluid::setBounds(int direction) {
 
 }
 
-void Fluid::diffuse(int direction, float dt) {
+void Fluid::diffuse(std::vector<float> final, std::vector<float> initial, int direction, float dt) {
     float coef = diff * dt * size;
 
     for (int n = 0; n < 20; n++) {
         for (int i = 1; i < width; i++)
             for (int j = 1; j < height; j++)
-                density[IX(i, j, height)] = (initialDensity[IX(i, j, height)] + coef * (density[IX(i-1, j, height)] + density[IX(i+1, j, height)] + density[IX(i, j-1, height)] + density[IX(i, j+1, height)])) / (4*coef + 1);
+                final[IX(i, j, height)] = (initial[IX(i, j, height)] + coef * (final[IX(i-1, j, height)] + final[IX(i+1, j, height)] + final[IX(i, j-1, height)] + final[IX(i, j+1, height)])) / (4*coef + 1);
         setBounds(direction);
     }
+}
+
+void Fluid::advect(int direction, float dt) {
+
+    int i, j, i0, j0, i1, j1;
+    float x, y, s0, t0, s1, t1, dtw, dth;
+
+    dtw = dt*width;
+    dth = dt*height;
+    for (i = 1; i <= width; i++) {
+        for (j = 1; j <= height; j++) {
+
+            x = i - dtw*hvelocity[IX(i, j, height)];
+            y = j - dth*vvelocity[IX(i, j, height)];
+
+            if (x < 0.5)
+                x = 0.5;
+            else if (x > width + 0.5)
+                x = width+0.5;
+            i0 = (int) x;
+            i1 = i0 + 1;
+
+            if (y < 0.5)
+                y = 0.5;
+            else if (y > height + 0.5)
+                y = height + 0.5;
+            j0 = (int) y;
+            j1 = j0 + 1;
+
+            s1 = x - i0;
+            s0 = 1 - s1;
+
+            t1 = y - j0;
+            t0 = 1 - t1;
+
+            density[IX(i, j, height)] = s0*(t0*initialDensity[IX(i0, j0, height)]+t1*initialDensity[IX(i0, j1, height)]) +
+                                        s1*(t0*initialDensity[IX(i1, j0, height)]+t1*initialDensity[IX(i1, j1, height)]);
+        }
+    }
+
+    setBounds(direction);
 }
 
 void Fluid::project() {
@@ -71,10 +116,22 @@ void Fluid::project() {
 }
 
 void Fluid::densStep(float dt) {
-    addSource(dt);
+    addSource(density, source, dt);
     initialDensity.swap(density);
-    diffuse(0, dt);
+    diffuse(density, initialDensity, 0, dt);
     initialDensity.swap(density);
+    advect(0, dt);
+}
+
+void Fluid::velStep(float dt) {
+    addSource(hvelocity, initialVVelocity, dt);
+    addSource(vvelocity, initialVVelocity, dt);
+
+    initialHVelocity.swap(hvelocity);
+    diffuse(hvelocity, initialHVelocity, 1, diff);
+
+    initialVVelocity.swap(vvelocity);
+    diffuse(vvelocity, initialVVelocity, 2, diff);
 }
 
 void Fluid::draw() {

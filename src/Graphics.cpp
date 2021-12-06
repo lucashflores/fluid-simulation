@@ -22,7 +22,7 @@ void Graphics::drawPixel (int x, int y, float d) {
 const int Graphics::update () {
     last = now;
     now = SDL_GetPerformanceCounter();
-    dt = static_cast<float>((now - last) * 1000 / static_cast<float>(SDL_GetPerformanceFrequency()) );
+    dt = static_cast<float>((now - last) / static_cast<float>(SDL_GetPerformanceFrequency()) );
 
     SDL_RenderPresent(renderer);
     if(SDL_PollEvent(&event) && event.type == SDL_QUIT) {
