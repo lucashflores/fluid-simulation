@@ -17,7 +17,7 @@ public:
     Graphics(int width, int height);
     ~Graphics();
     void drawPixel(int x, int y, float d); //coordinates x,y of pixel and d for density
-    const int update();
+    const int update(); //returns 1 if exit is requested, 0 otherwise
     void clearScreen();
     const float getDeltaTime() const;
 };

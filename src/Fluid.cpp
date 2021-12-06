@@ -63,8 +63,8 @@ void Fluid::diffuse(std::vector<float> final, std::vector<float> initial, int di
     float coef = diff * dt * size;
 
     for (int n = 0; n < 20; n++) {
-        for (int i = 1; i < width; i++)
-            for (int j = 1; j < height; j++)
+        for (int i = 1; i <= width; i++)
+            for (int j = 1; j <= height; j++)
                 final[IX(i, j, height)] = (initial[IX(i, j, height)] + coef * (final[IX(i-1, j, height)] + final[IX(i+1, j, height)] + final[IX(i, j-1, height)] + final[IX(i, j+1, height)])) / (4*coef + 1);
         setBounds(direction);
     }
