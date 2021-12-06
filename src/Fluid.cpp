@@ -4,9 +4,9 @@ Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w),
     this->graphics = graphics;
     setSize(w, h);
     initialDensity.assign(size, 0);
-    density.assign(size, 0.3);
+    density.assign(size, 0);
     source.assign(size, 0);
-    source[IX(width/2, height/2, height)] = 1;
+    source[IX(width/2, height/2, height)] = 30;
     hvelocity.assign(size, 0);
     vvelocity.assign(size, 0);
 }
@@ -59,14 +59,18 @@ void Fluid::diffuse(int direction, float dt) {
     float coef = diff * dt * size;
 
     for (int n = 0; n < 20; n++) {
-        for (int i = 1; i < width; i++)
-            for (int j = 1; j < height; j++)
+        for (int i = 1; i <= width; i++)
+            for (int j = 1; j <= height; j++)
                 density[IX(i, j, height)] = (initialDensity[IX(i, j, height)] + coef * (density[IX(i-1, j, height)] + density[IX(i+1, j, height)] + density[IX(i, j-1, height)] + density[IX(i, j+1, height)])) / (4*coef + 1);
         setBounds(direction);
     }
 }
 
 void Fluid::project() {
+
+}
+
+void Fluid::advect() {
 
 }
 

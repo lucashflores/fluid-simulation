@@ -24,7 +24,7 @@ public:
     void setBounds(int direction);
     void diffuse(int direction, float dt);
     void project();
-    void abvect();
+    void advect();
     void densStep(float dt);
     void draw();
 
