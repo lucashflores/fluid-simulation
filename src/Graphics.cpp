@@ -20,19 +20,12 @@ void Graphics::drawPixel (int x, int y, float d) {
     SDL_RenderDrawPoint(renderer, x, y);
 }
 
-const int Graphics::update () {
+void Graphics::update () {
     last = now;
     now = SDL_GetPerformanceCounter();
     dt = static_cast<float>((now - last) / static_cast<float>(SDL_GetPerformanceFrequency()) );
 
     SDL_RenderPresent(renderer);
-    if(SDL_PollEvent(&event) && event.type == SDL_QUIT) {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        SDL_Quit();
-        return 1;
-    }
-    return 0;
 }
 
 void Graphics::clearScreen () {
@@ -42,4 +35,10 @@ void Graphics::clearScreen () {
 
 const float Graphics::getDeltaTime() const {
     return dt;
+}
+
+void Graphics::terminate() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }

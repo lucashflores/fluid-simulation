@@ -1,14 +1,13 @@
 #include "Fluid.h"
 
 Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w), diff(diff),
-density(), initialDensity(), initialHVelocity(), hvelocity(), initialVVelocity(), vvelocity() {
+density(), initialDensity(), initialHVelocity(), hvelocity(), initialVVelocity(), vvelocity(), x(), y(), xPrev(), yPrev() {
     this->graphics = graphics;
     setSize(w, h);
     initialDensity.assign(size, 0);
     density.assign(size, 0);
     initialVVelocity = std::vector<float>(size, 0);
-    initialHVelocity = std::vector<float>(size, 0.4f);
-    initialDensity[IX(width/2, height/2, width)] = 255;
+    initialHVelocity = std::vector<float>(size, 0);
     hvelocity.assign(size, 0);
     vvelocity.assign(size, 0);
 }
@@ -31,8 +30,11 @@ void Fluid::setSize(int w, int h) {
 void Fluid::addSource(std::vector<float>& vector, std::vector<float>& source, float dt) {
     for (int i = 0; i < size; i++) {
         vector[i] += dt*source[i];
+        //vector[i] -= 1*dt;
         if (vector[i] > 255)
             vector[i] = 255;
+        else if (vector[i] < 0)
+            vector[i] = 0;
     }
 }
 
@@ -118,7 +120,6 @@ void Fluid::advect(std::vector<float>& vec1, std::vector<float>& vec2, std::vect
 void Fluid::densStep(float dt) {
     addSource(density, initialDensity, dt);
     initialDensity.swap(density);
-    //initialDensity[IX(width/2, height/2, width)] = 150;
     diffuse(density, initialDensity, 0, dt);
     initialDensity.swap(density);
     advect(density, initialDensity, hvelocity, vvelocity, 0, dt);
@@ -187,4 +188,19 @@ void Fluid::draw() {
             }
                 
         }
+}
+
+void Fluid::setMouseCoord(int x, int y) {
+    xPrev = this->x;
+    yPrev = this->y;
+    this->x = x;
+    this->y = y;
+}
+
+void Fluid::addFromUser(int x, int y) {
+    setMouseCoord(x, y);
+    density[IX(x, y, width)] += 255;
+    printf("%f\n", density[IX(x, y, width)]);
+    vvelocity[IX(x, y, width)] += 0;//(y - yPrev);
+    hvelocity[IX(x, y, width)] += 0;//(x - xPrev);
 }

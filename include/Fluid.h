@@ -15,6 +15,7 @@ private:
     int width;
     int size;
     float diff;
+    int x, y, xPrev, yPrev;
     std::vector<float> initialDensity;
     std::vector<float> density;
     std::vector<float> initialHVelocity;
@@ -34,5 +35,7 @@ public:
     void velStep(float dt);
     void densStep(float dt);
     void draw();
+    void setMouseCoord(int x, int y);
+    void addFromUser(int x, int y);
 
 };
