@@ -20,7 +20,7 @@ add_executable(${PROJECT_NAME} main.cpp ${SOURCES})
 set_target_properties(${PROJECT_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "./")
 
 if(WIN32)
-    target_link_libraries(${PROJECT_NAME} -lmingw32 ${SDL2_LIBRARY_DIR}/libSDL2main.a ${SDL2_LIBRARY_DIR}/libSDL2.dll.a) #-mwindows
+    target_link_libraries(${PROJECT_NAME} -lmingw32 ${SDL2_LIBRARY_DIR}/libSDL2main.a ${SDL2_LIBRARY_DIR}/libSDL2.dll.a -mwindows) #-mwindows
     file(COPY ${SDL2_DIR}/bin/SDL2.dll DESTINATION ./)
 endif()
 # if(UNIX)
