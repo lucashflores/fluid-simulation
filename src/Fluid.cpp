@@ -184,7 +184,10 @@ void Fluid::draw() {
         for (int j = 0; j <= height; j++){
             if (density[IX(i, j, width)] != 0) {
                 //printf("%f\n", density[IX(i, j, height)]);
-                graphics->drawPixel(i, j, density[IX(i, j, width)]);
+                float v = vvelocity[IX(i, j, width)] + hvelocity[(i, j, width)];
+                if(v > 255) v = 255;
+                else if(v < 0) v = 0;
+                graphics->drawPixel(i, j, density[IX(i, j, width)], v);
             }
                 
         }

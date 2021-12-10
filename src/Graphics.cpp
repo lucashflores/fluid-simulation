@@ -16,8 +16,8 @@ Graphics::~Graphics () {
     window = nullptr;
 }
 
-void Graphics::drawPixel (int x, int y, float d) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, d);
+void Graphics::drawPixel (int x, int y, float d, float v) {
+    SDL_SetRenderDrawColor(renderer, v, 255, 255, d);
     SDL_RenderDrawPoint(renderer, x, y);
 }
 
