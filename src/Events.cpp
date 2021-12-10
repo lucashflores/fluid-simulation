@@ -1,6 +1,6 @@
 #include "Events.h"
 
-Events::Events(Graphics *graphics, Fluid *fluid): x(0), y(0){
+Events::Events(Graphics *graphics, Fluid *fluid): x(0), y(0), mousePressed(false){
     this->graphics = graphics;
     this->fluid = fluid;
 }
@@ -18,13 +18,20 @@ const int Events::pollEvents() {
                 return 1;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                printf("x: %d, y: %d\n", x, y);
-                fluid->addFromUser(x, y);
+                mousePressed = true;
                 break;
-            case SDL_MOUSEMOTION:
+            case SDL_MOUSEBUTTONUP:
+                mousePressed = false;
+                break;
+            /* case SDL_MOUSEMOTION:
                 getMousePosition();
                 fluid->setMouseCoord(x, y);
-                break;
+                break; */
+        }
+        if(mousePressed){
+            getMousePosition();
+            printf("x: %d, y: %d\n", x, y);
+            fluid->addFromUser(x, y);
         }
     }
     return 0;

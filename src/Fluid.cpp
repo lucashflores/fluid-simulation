@@ -29,7 +29,7 @@ void Fluid::setSize(int w, int h) {
 
 void Fluid::addSource(std::vector<float>& vector, std::vector<float>& source, float dt) {
     for (int i = 0; i < size; i++) {
-        vector[i] += dt*source[i];
+        // vector[i] += dt*source[i];
         //vector[i] -= 1*dt;
         if (vector[i] > 255)
             vector[i] = 255;
@@ -201,6 +201,6 @@ void Fluid::addFromUser(int x, int y) {
     setMouseCoord(x, y);
     density[IX(x, y, width)] += 255;
     printf("%f\n", density[IX(x, y, width)]);
-    vvelocity[IX(x, y, width)] += 0;//(y - yPrev);
-    hvelocity[IX(x, y, width)] += 0;//(x - xPrev);
+    vvelocity[IX(x, y, width)] += (y - yPrev);
+    hvelocity[IX(x, y, width)] += (x - xPrev);
 }

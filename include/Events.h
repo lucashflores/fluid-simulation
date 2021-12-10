@@ -10,9 +10,10 @@
 class Events{
 private:
     SDL_Event event;
-    int x, y;
     Graphics *graphics;
     Fluid *fluid;
+    int x, y;
+    bool mousePressed;
 
 public:
     Events(Graphics *graphics, Fluid *fluid);
