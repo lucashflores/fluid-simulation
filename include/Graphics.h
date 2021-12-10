@@ -13,7 +13,7 @@ private:
     float dt;
 
 public:
-    Graphics(int width, int height);
+    Graphics(int width, int height, float scaleX, float scaleY);
     ~Graphics();
     void drawPixel(int x, int y, float d); //coordinates x,y of pixel and d for density
     void update();

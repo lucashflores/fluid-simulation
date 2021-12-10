@@ -1,7 +1,7 @@
 #include "Fluid.h"
 
-Fluid::Fluid(int w, int h, float diff, Graphics *graphics): height(h), width(w), diff(diff),
-density(), initialDensity(), initialHVelocity(), hvelocity(), initialVVelocity(), vvelocity(), x(), y(), xPrev(), yPrev() {
+Fluid::Fluid(int w, int h, float diff, Graphics *graphics, float scaleX, float scaleY): height(h), width(w), diff(diff),
+density(), initialDensity(), initialHVelocity(), hvelocity(), initialVVelocity(), vvelocity(), x(), y(), xPrev(), yPrev(), scaleX(scaleX), scaleY(scaleY){
     this->graphics = graphics;
     setSize(w, h);
     initialDensity.assign(size, 0);
@@ -126,8 +126,8 @@ void Fluid::densStep(float dt) {
 }
 
 void Fluid::velStep(float dt) {
-    addSource(hvelocity, initialHVelocity, dt);
-    addSource(vvelocity, initialVVelocity, dt);
+    // addSource(hvelocity, initialHVelocity, dt);
+    // addSource(vvelocity, initialVVelocity, dt);
 
     initialHVelocity.swap(hvelocity);
     diffuse(hvelocity, initialHVelocity, 1, diff);
@@ -180,8 +180,8 @@ void Fluid::project() {
 
 void Fluid::draw() {
     graphics->clearScreen();
-    for (int i = 1; i <= width; i++)
-        for (int j = 2; j <= height; j++){
+    for (int i = 0; i <= width; i++)
+        for (int j = 0; j <= height; j++){
             if (density[IX(i, j, width)] != 0) {
                 //printf("%f\n", density[IX(i, j, height)]);
                 graphics->drawPixel(i, j, density[IX(i, j, width)]);
@@ -193,14 +193,14 @@ void Fluid::draw() {
 void Fluid::setMouseCoord(int x, int y) {
     xPrev = this->x;
     yPrev = this->y;
-    this->x = x;
-    this->y = y;
+    this->x = x / scaleX;
+    this->y = y / scaleY;
 }
 
 void Fluid::addFromUser(int x, int y) {
     setMouseCoord(x, y);
-    density[IX(x, y, width)] += 255;
-    printf("%f\n", density[IX(x, y, width)]);
-    vvelocity[IX(x, y, width)] += (y - yPrev);
-    hvelocity[IX(x, y, width)] += (x - xPrev);
+    density[IX(this->x, this->y, width)] += 255;
+    // printf("%f\n", density[IX(this->x, this->y, width)]);
+    vvelocity[IX(this->x, this->y, width)] += (this->y - yPrev);
+    hvelocity[IX(this->x, this->y, width)] += (this->x - xPrev);
 }

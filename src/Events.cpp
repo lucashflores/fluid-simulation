@@ -30,7 +30,7 @@ const int Events::pollEvents() {
         }
         if(mousePressed){
             getMousePosition();
-            printf("x: %d, y: %d\n", x, y);
+            // printf("x: %d, y: %d\n", x, y);
             fluid->addFromUser(x, y);
         }
     }

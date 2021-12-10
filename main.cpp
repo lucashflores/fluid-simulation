@@ -7,10 +7,11 @@
 #include "windows.h"
 
 int main() {
-    const int width = 240, height = 160;
-    Graphics *graphics = new Graphics(width, height);
-    const float diffusion = 0.00001;
-    Fluid *fluid = new Fluid(width, height, diffusion, graphics);
+    const int width = 960, height = 640;
+    const float scaleX = 8, scaleY = 8;
+    Graphics *graphics = new Graphics(width, height, scaleX, scaleY);
+    const float diffusion = 0.0001;
+    Fluid *fluid = new Fluid(width/scaleX, height/scaleY, diffusion, graphics, scaleX, scaleY);
     Events *events = new Events(graphics, fluid);
     
     float dt{0};

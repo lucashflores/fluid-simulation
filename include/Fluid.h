@@ -16,6 +16,7 @@ private:
     int size;
     float diff;
     int x, y, xPrev, yPrev;
+    float scaleX, scaleY;
     std::vector<float> initialDensity;
     std::vector<float> density;
     std::vector<float> initialHVelocity;
@@ -24,7 +25,7 @@ private:
     std::vector<float> vvelocity;
     Graphics *graphics;
 public:
-    Fluid(int w, int h, float diff, Graphics *graphics);
+    Fluid(int w, int h, float diff, Graphics *graphics, float scaleX, float scaleY);
     ~Fluid();
     void setSize(int w, int h);
     void addSource(std::vector<float>& vector, std::vector<float>& source, float dt);

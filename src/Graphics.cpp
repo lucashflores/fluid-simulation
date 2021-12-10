@@ -1,11 +1,12 @@
 #include "Graphics.h"
 
 
-Graphics::Graphics (int width, int height): width(width), height(height), now(SDL_GetPerformanceCounter()), last(0), dt(0) {
+Graphics::Graphics (int width, int height, float scaleX, float scaleY): width(width), height(height), now(SDL_GetPerformanceCounter()), last(0), dt(0) {
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Navier-Stokes (Trabalho de Calculo 3)", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_RenderSetScale(renderer, scaleX, scaleY);
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 }
