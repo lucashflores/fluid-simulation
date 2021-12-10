@@ -28,12 +28,13 @@ const int Events::pollEvents() {
                 fluid->setMouseCoord(x, y);
                 break; */
         }
-        if(mousePressed){
-            getMousePosition();
-            // printf("x: %d, y: %d\n", x, y);
-            fluid->addFromUser(x, y);
-        }
     }
+    if(mousePressed){
+        getMousePosition();
+        // printf("x: %d, y: %d\n", x, y);
+        fluid->addFromUser(x, y);
+    }
+
     return 0;
 }
 
