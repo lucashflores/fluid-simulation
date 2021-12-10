@@ -15,7 +15,7 @@ private:
 public:
     Graphics(int width, int height, float scaleX, float scaleY);
     ~Graphics();
-    void drawPixel(int x, int y, float d, float v); //coordinates x,y of pixel and d for density
+    void drawPixel(int x, int y, float d); //coordinates x,y of pixel and d for density
     void update();
     void clearScreen();
     const float getDeltaTime() const;

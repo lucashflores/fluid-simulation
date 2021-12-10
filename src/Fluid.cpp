@@ -30,7 +30,7 @@ void Fluid::setSize(int w, int h) {
 void Fluid::addSource(std::vector<float>& vector, std::vector<float>& source, float dt) {
     for (int i = 0; i < size; i++) {
         // vector[i] += dt*source[i];
-        //vector[i] -= 1*dt;
+        vector[i] -= 1*dt;
         if (vector[i] > 255)
             vector[i] = 255;
         else if (vector[i] < 0)
@@ -184,10 +184,7 @@ void Fluid::draw() {
         for (int j = 0; j <= height; j++){
             if (density[IX(i, j, width)] != 0) {
                 //printf("%f\n", density[IX(i, j, height)]);
-                float v = vvelocity[IX(i, j, width)] + hvelocity[(i, j, width)];
-                if(v > 255) v = 255;
-                else if(v < 0) v = 0;
-                graphics->drawPixel(i, j, density[IX(i, j, width)], v);
+                graphics->drawPixel(i, j, density[IX(i, j, width)]);
             }
                 
         }
@@ -202,8 +199,9 @@ void Fluid::setMouseCoord(int x, int y) {
 
 void Fluid::addFromUser(int x, int y) {
     setMouseCoord(x, y);
+    const float velScale = 5;
     density[IX(this->x, this->y, width)] += 255;
     // printf("%f\n", density[IX(this->x, this->y, width)]);
-    vvelocity[IX(this->x, this->y, width)] += (this->y - yPrev);
-    hvelocity[IX(this->x, this->y, width)] += (this->x - xPrev);
+    vvelocity[IX(this->x, this->y, width)] += velScale * scaleY * (this->y - yPrev);
+    hvelocity[IX(this->x, this->y, width)] += velScale * scaleX * (this->x - xPrev);
 }
