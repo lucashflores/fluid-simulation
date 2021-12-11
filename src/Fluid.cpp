@@ -68,7 +68,7 @@ void Fluid::setBounds(std::vector<float>& vector, int direction) {
 void Fluid::diffuse(std::vector<float>& final, std::vector<float>& initial, int direction, float dt) {
     float coef = diff * dt * size;
 
-    for (int n = 0; n < 20; n++) {
+    for (int n = 0; n < 16; n++) {
         for (int i = 1; i <= width; i++)
             for (int j = 1; j <= height; j++)
                 final[IX(i, j, width)] = (initial[IX(i, j, width)] + coef * (final[IX(i-1, j, width)] + final[IX(i+1, j, width)] + final[IX(i, j-1, width)] + final[IX(i, j+1, width)])) / (4*coef + 1);
@@ -195,13 +195,15 @@ void Fluid::setMouseCoord(int x, int y) {
     yPrev = this->y;
     this->x = x / scaleX;
     this->y = y / scaleY;
+    if(this->x == 0) this->x = 1;
+    if(this->y == 0) this->y = 1;
 }
 
 void Fluid::addFromUser(int x, int y) {
     setMouseCoord(x, y);
     const float velScale = 5;
     density[IX(this->x, this->y, width)] += 255;
-    // printf("%f\n", density[IX(this->x, this->y, width)]);
+    //printf("%f\n", density[IX(this->x, this->y, width)]);
     vvelocity[IX(this->x, this->y, width)] += velScale * scaleY * (this->y - yPrev);
     hvelocity[IX(this->x, this->y, width)] += velScale * scaleX * (this->x - xPrev);
 }
