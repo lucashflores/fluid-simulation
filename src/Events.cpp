@@ -1,8 +1,9 @@
 #include "Events.h"
 
-Events::Events(Graphics *graphics, Fluid *fluid): x(0), y(0), mousePressed(false){
+Events::Events(Graphics *graphics, Fluid *fluid, bool *pause): x(0), y(0), mousePressed(false) {
     this->graphics = graphics;
     this->fluid = fluid;
+    pPause = pause;
 }
 
 Events::~Events() {
@@ -27,6 +28,10 @@ const int Events::pollEvents() {
                 getMousePosition();
                 fluid->setMouseCoord(x, y);
                 break; */
+            case SDL_KEYDOWN:
+                if(event.key.keysym.sym == SDLK_SPACE)
+                    *pPause = !*pPause;
+                break;
         }
     }
     if(mousePressed){
