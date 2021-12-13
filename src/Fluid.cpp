@@ -193,8 +193,8 @@ void Fluid::draw() {
 void Fluid::setMouseCoord(int x, int y) {
     xPrev = this->x;
     yPrev = this->y;
-    this->x = x / scaleX;
-    this->y = y / scaleY;
+    this->x = x / scaleX + 1;
+    this->y = y / scaleY + 1;
     if(this->x == 0) this->x = 1;
     if(this->y == 0) this->y = 1;
 }
