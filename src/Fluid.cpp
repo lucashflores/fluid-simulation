@@ -31,10 +31,6 @@ void Fluid::addSource(std::vector<float>& vector, std::vector<float>& source, fl
     for (int i = 0; i < size; i++) {
         // vector[i] += dt*source[i];
         vector[i] -= 1*dt;
-        if (vector[i] > 255)
-            vector[i] = 255;
-        else if (vector[i] < 0)
-            vector[i] = 0;
     }
 }
 
@@ -182,6 +178,10 @@ void Fluid::draw() {
     graphics->clearScreen();
     for (int i = 0; i <= width; i++)
         for (int j = 0; j <= height; j++){
+            if (density[IX(i, j, width)] > 255)
+                density[IX(i, j, width)] = 255;
+            else if (density[IX(i, j, width)] < 0)
+                density[IX(i, j, width)] = 0;
             if (density[IX(i, j, width)] != 0) {
                 //printf("%f\n", density[IX(i, j, height)]);
                 graphics->drawPixel(i, j, density[IX(i, j, width)]);
