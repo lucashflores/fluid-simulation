@@ -176,15 +176,15 @@ void Fluid::project() {
 
 void Fluid::draw() {
     graphics->clearScreen();
-    for (int i = 0; i <= width; i++)
-        for (int j = 0; j <= height; j++){
+    for (int i = 1; i <= width; i++)
+        for (int j = 1; j <= height; j++){
             if (density[IX(i, j, width)] > 255)
                 density[IX(i, j, width)] = 255;
             else if (density[IX(i, j, width)] < 0)
                 density[IX(i, j, width)] = 0;
             if (density[IX(i, j, width)] != 0) {
                 //printf("%f\n", density[IX(i, j, height)]);
-                graphics->drawPixel(i, j, density[IX(i, j, width)]);
+                graphics->drawPixel(i-1, j-1, density[IX(i, j, width)]);
             }
                 
         }
